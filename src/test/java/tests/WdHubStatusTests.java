@@ -1,19 +1,26 @@
 package tests;
 
+import io.restassured.RestAssured;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.hasKey;
 
 public class WdHubStatusTests extends TestBase {
+    @BeforeAll
+    static void setupPath() {
+        RestAssured.basePath = "/wd/hub";
+    }
     @Test
     public void statusTest() {
         given()
                 .log().all()
                 .auth().basic("user1", "1234")
                 .when()
-                .get("https://selenoid.autotests.cloud/wd/hub/status")
+                .get("/status")
                 .then()
                 .log().all()
                 .statusCode(200);
@@ -24,7 +31,7 @@ public class WdHubStatusTests extends TestBase {
         given()
                 .log().all()
                 .when()
-                .get("/wd/hub/status")
+                .get("/status")
                 .then()
                 .log().all()
                 .statusCode(401);
@@ -36,10 +43,11 @@ public class WdHubStatusTests extends TestBase {
                 .log().all()
                 .auth().basic("user1", "test")
                 .when()
-                .get("/wd/hub/status")
+                .get("/status")
                 .then()
                 .log().all()
-                .statusCode(401);
+                .statusCode(401)
+                .body(containsString("Authorization Required"));
     }
 
     @Test
@@ -48,7 +56,7 @@ public class WdHubStatusTests extends TestBase {
                 .log().all()
                 .auth().basic("user1", "1234")
                 .when()
-                .get("/wd/hub/status")
+                .get("/status")
                 .then()
                 .log().all()
                 .statusCode(200)
@@ -61,7 +69,7 @@ public class WdHubStatusTests extends TestBase {
                 .log().all()
                 .auth().basic("user1", "1234")
                 .when()
-                .get("/wd/hub/status")
+                .get("/status")
                 .then()
                 .log().all()
                 .statusCode(200)
