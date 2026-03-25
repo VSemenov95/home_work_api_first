@@ -8,19 +8,17 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.is;
 
-public class StatusTests {
-
-
+public class StatusTests extends TestBase {
     @Test
     public void totalAmountTest() {
-        get("https://selenoid.autotests.cloud/status")
+        get("/status")
                 .then()
                 .body("total", is(5));
     }
 
     @Test
     public void totalAmountTest_withResponseLogs() {
-        get("https://selenoid.autotests.cloud/status")
+        get("/status")
                 .then()
                 .log().all()
                 .body("total", is(5));
@@ -31,7 +29,7 @@ public class StatusTests {
         given()
                 .log().all()
                 .when()
-                .get("https://selenoid.autotests.cloud/status")
+                .get("/status")
                 .then()
                 .log().all()
                 .body("total", is(5));
@@ -42,7 +40,7 @@ public class StatusTests {
         given()
                 .log().all()
                 .when()
-                .get("https://selenoid.autotests.cloud/status")
+                .get("/status")
                 .then()
                 .log().all()
                 .statusCode(200);
@@ -53,7 +51,7 @@ public class StatusTests {
         given()
                 .log().all()
                 .when()
-                .get("https://selenoid.autotests.cloud/status")
+                .get("/status")
                 .then()
                 .log().all()
                 .statusCode(200);
@@ -64,7 +62,7 @@ public class StatusTests {
         given()
                 .log().all()
                 .when()
-                .get("https://selenoid.autotests.cloud/status")
+                .get("/status")
                 .then()
                 .log().all()
                 .statusCode(200)
@@ -80,7 +78,7 @@ public class StatusTests {
         given()
                 .log().all()
                 .when()
-                .get("https://selenoid.autotests.cloud/status")
+                .get("/status")
                 .then()
                 .log().all()
                 .statusCode(200)
@@ -93,7 +91,7 @@ public class StatusTests {
         given()
                 .log().all()
                 .when()
-                .get("https://selenoid.autotests.cloud/status")
+                .get("/status")
                 .then()
                 .log().all()
                 .statusCode(200)
@@ -105,7 +103,7 @@ public class StatusTests {
         given()
                 .log().all()
                 .when()
-                .get("https://selenoid.autotests.cloud/status")
+                .get("/status")
                 .then()
                 .log().all()
                 .statusCode(200)
